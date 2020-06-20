@@ -2,6 +2,7 @@ const router = require('express').Router()
 
 const reqAuth = require('../auth/requires-auth')
 const validateRecurring = require('./validate-recurring')
+const { createTimestamp } = require('../config/utils')
 
 const Items = require('./items-model')
 
@@ -54,9 +55,8 @@ router.put('/:id', reqAuth, validateRecurring, (req, res) => {
     const { id } = req.params
     const item = req.body
 
-    //Need to fix the time format to match what the server creates initially
-    const timestamp = new Date()
-    item.updated_at = timestamp.toISOString()
+    //Create a new timestamp to record when update occurred
+    item.updated_at = createTimestamp
 
     Items.update(item, id)
         .then(item => {
