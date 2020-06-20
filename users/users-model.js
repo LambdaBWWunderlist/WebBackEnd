@@ -16,11 +16,11 @@ async function insert(user) {
 }
 
 function find() {
-
+    return db('users').orderBy('id')
 }
 
 function findBy(filter) {
-
+    return db('users').where(filter).first()
 }
 
 function findById(id) {
