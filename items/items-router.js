@@ -5,6 +5,7 @@ const validateRecurring = require('./validate-recurring')
 
 const Items = require('./items-model')
 
+//Creates a new item associated with a specific user and returns the newly created item
 router.post('/', reqAuth, validateRecurring, (req, res) => {
     const { name, user_id } = req.body
 
@@ -27,6 +28,8 @@ router.post('/', reqAuth, validateRecurring, (req, res) => {
     }
 })
 
+//Returns an array containing all the items for a specified user. 
+//Returns empty array if user exists but has no items
 router.get('/:user_id', reqAuth, (req, res) => {
     const { user_id } = req.params
 
@@ -46,6 +49,7 @@ router.get('/:user_id', reqAuth, (req, res) => {
 
 })
 
+//Updates a specified item by item id and returns the newly updated item
 router.put('/:id', reqAuth, validateRecurring, (req, res) => {
     const { id } = req.params
     const item = req.body

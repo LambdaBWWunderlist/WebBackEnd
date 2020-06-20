@@ -4,6 +4,7 @@ const reqAuth = require('../auth/requires-auth')
 
 const Users = require('./users-model')
 
+//Returns an array of all users
 router.get('/', reqAuth, (req, res) => {
     Users.find()
         .then(users => {
@@ -19,6 +20,7 @@ router.get('/', reqAuth, (req, res) => {
         })
 })
 
+//Returns the specified user
 router.get('/:id', reqAuth, (req, res) => {
     const { id } = req.params
 
@@ -36,10 +38,12 @@ router.get('/:id', reqAuth, (req, res) => {
         })
 })
 
+//Updates the specified user and returns the updated user
 router.put('/:id', reqAuth, (req, res) => {
 
 })
 
+//Destroys the specified user from the database and returns the deleted user
 router.delete('/:id', reqAuth, (req, res) => {
     const { id } = req.params
 
