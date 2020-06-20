@@ -53,12 +53,14 @@ router.get('/:user_id', reqAuth, (req, res) => {
 //Updates a specified item by item id and returns the newly updated item
 router.put('/:id', reqAuth, validateRecurring, (req, res) => {
     const { id } = req.params
-    const item = req.body
+    const update = req.body
+
+    delete update.id
 
     //Create a new timestamp to record when update occurred
-    item.updated_at = createTimestamp
+    update.updated_at = createTimestamp
 
-    Items.update(item, id)
+    Items.update(update, id)
         .then(item => {
             if (item) {
                 res.status(200).json(item)

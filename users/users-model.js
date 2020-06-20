@@ -27,8 +27,9 @@ function findById(id) {
     return db('users').where({ id }).first()
 }
 
-function update(id) {
-
+async function update(user, id) {
+    const count = await db('users').where('id', id).update(user)
+    return count ? findById(id) : count
 }
 
 async function remove(id) {

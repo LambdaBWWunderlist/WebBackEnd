@@ -1,6 +1,8 @@
 const router = require('express').Router()
 
 const reqAuth = require('../auth/requires-auth')
+const { hashPassword } = require('./users-service')
+const { createTimestamp } = require('../config/utils')
 
 const Users = require('./users-model')
 
@@ -40,7 +42,29 @@ router.get('/:id', reqAuth, (req, res) => {
 
 //Updates the specified user and returns the updated user
 router.put('/:id', reqAuth, (req, res) => {
+    const { id } = req.params
+    const update = req.body
 
+    delete update.id
+
+    update.updated_at = createTimestamp()
+
+    if (update.password) {
+        update.password = hashPassword(update.password)
+    }
+
+    Users.update(update, id)
+        .then(user => {
+            if (user) {
+                res.status(200).json(user)
+            }
+            else {
+                res.status(404).json({ message: 'requested user not found' })
+            }
+        })
+        .catch(error => {
+            res.status(500).json({ error: error.message })
+        })
 })
 
 //Destroys the specified user from the database and returns the deleted user
