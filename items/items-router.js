@@ -1,10 +1,11 @@
 const router = require('express').Router()
 
 const reqAuth = require('../auth/requires-auth')
+const validateRecurring = require('./validate-recurring')
 
 const Items = require('./items-model')
 
-router.post('/', reqAuth, (req, res) => {
+router.post('/', reqAuth, validateRecurring, (req, res) => {
     const { name, user_id } = req.body
 
     if (name && user_id) {
@@ -45,7 +46,7 @@ router.get('/:user_id', reqAuth, (req, res) => {
 
 })
 
-router.put('/:id', reqAuth, (req, res) => {
+router.put('/:id', reqAuth, validateRecurring, (req, res) => {
 
 })
 

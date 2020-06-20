@@ -48,8 +48,16 @@ async function find(user_id) {
 
 }
 
-function findById(id) {
-    return db('items').where('id', id).first()
+async function findById(id) {
+    const item = await db('items as i')
+        .where('i.id', id)
+        .join('users as u', 'i.user_id', 'u.id')
+        .select('i.id', 'i.name', 'i.completed', 'i.recurring', 'i.created_at', 'i.updated_at', 'u.username')
+        .first()
+
+    item.completed ? item.completed = true : item.completed = false
+
+    return item
 }
 
 function findUser(user_id) {
