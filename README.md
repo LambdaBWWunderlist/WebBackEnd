@@ -15,6 +15,7 @@
   password: STRING; // not nullable - 256 chars max
   email: STRING; // not nullable, unique - 128 chars max
   created_at: TIMESTAMP; // defaults to now, server will handle this
+  updated_at: TIMESTAMP; // defaults to now, server will handle this
 }
 ```
 
@@ -38,6 +39,7 @@
 
 #### Auth
 
+- No Authentication required
 ---
 
 | Method | Endpoint         | Description                                              |
@@ -47,19 +49,21 @@
 
 #### Users 
 
+- Authentication required to access these resources
 ---
 
-| Method | Endpoint        | Description                 |
-| ------ | ----------------| --------------------------- |
-| GET    | `api/users`     | Returns a list of all users |
-| GET    | `api/users/:id` | Return the specified user   |
-| PUT    | `api/users/:id` | Updates the specified user  |
-| DELETE | `api/users/:id` | Destroys the specified user |
+| Method | Endpoint        | Description                                              |
+| ------ | ----------------| -------------------------------------------------------- |
+| GET    | `api/users`     | Returns a list of all users                              |
+| GET    | `api/users/:id` | Return the specified user                                |
+| PUT    | `api/users/:id` | Updates the specified user and returns the updated user  |
+| DELETE | `api/users/:id` | Destroys the specified user and returns the deleted user |
 
-- Authentication required to access these resources
+
 
 #### Items 
 
+- Authentication required to access these resources
 ---
 
 | Method | Endpoint             | Description                                                                                  |
@@ -69,7 +73,6 @@
 | PUT    | `api/items/:id`      | Updates specified item and returns the updated item                                          |
 | DELETE | `api/items/:id`      | Destroys specified item and returns the deleted item                                         |
 
-- Authentication required to access these resources
 
 ## Seed Data
 
@@ -118,8 +121,16 @@
     user_id: 1
   },
   {
+    name: 'Become Heavy weight Champ',
+    user_id: 2
+  },
+  {
     name: 'Solve time travel',
     user_id: 1
+  },
+  {
+    name: 'Win Royale Rumble',
+    user_id: 2
   },
   {
     name: 'Get the Infinity Stones',

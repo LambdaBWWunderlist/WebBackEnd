@@ -10,8 +10,16 @@ exports.seed = function (knex) {
           user_id: 1
         },
         {
+          name: 'Become Heavy weight Champ',
+          user_id: 2
+        },
+        {
           name: 'Solve time travel',
           user_id: 1
+        },
+        {
+          name: 'Win Royale Rumble',
+          user_id: 2
         },
         {
           name: 'Get the Infinity Stones',
