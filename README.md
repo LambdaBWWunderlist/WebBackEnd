@@ -26,6 +26,9 @@
 {
   id: INTEGER; // assigned by database, auto increments
   name: STRING; // not nullable, 128 chars max
+  completed: BOOLEAN; // not nullable, defaults to false
+  created_at: TIMESTAMP; // defaults to now, server will handle this
+  updated_at: TIMESTAMP; // defaults to now, server will handle this
   user_id: INTEGER; // not nullable, references user id that created this item
 }
 ```
@@ -58,12 +61,12 @@
 
 ---
 
-| Method | Endpoint              | Description                                        |
-| ------ | --------------------- | -------------------------------------------------- |
-| POST   | `api/users/:id/items` | Creates a new item for the specified user          |
-| GET    | `api/users/:id/items` | Returns a list of all items for the specified user |
-| PUT    | `api/items/:id`       | Updates specified item                             |
-| DELETE | `api/items/:id`       | Destroys specified item                            |
+| Method | Endpoint             | Description                                        |
+| ------ | -------------------- | -------------------------------------------------- |
+| POST   | `api/items`          | Creates a new item for the specified user          |
+| GET    | `api/items/:user_id` | Returns a list of all items for the specified user |
+| PUT    | `api/items/:id`      | Updates specified item                             |
+| DELETE | `api/items/:id`      | Destroys specified item                            |
 
 - Authentication required to access these resources
 
