@@ -39,10 +39,10 @@
 
 ---
 
-| Method | Endpoint         | Description        |
-| ------ | ---------------- | ------------------ |
-| POST   | `api/register`   | User registration  |
-| POST   | `api/login`      | User login         |
+| Method | Endpoint         | Description                                              |
+| ------ | ---------------- | -------------------------------------------------------- |
+| POST   | `api/register`   | User registration. Returns newly created user            |
+| POST   | `api/login`      | User login. If successful returns a JSON Web Token (JWT) |
 
 #### Users 
 
@@ -61,12 +61,12 @@
 
 ---
 
-| Method | Endpoint             | Description                                        |
-| ------ | -------------------- | -------------------------------------------------- |
-| POST   | `api/items`          | Creates a new item for the specified user          |
-| GET    | `api/items/:user_id` | Returns a list of all items for the specified user |
-| PUT    | `api/items/:id`      | Updates specified item                             |
-| DELETE | `api/items/:id`      | Destroys specified item                            |
+| Method | Endpoint             | Description                                                                                  |
+| ------ | -------------------- | -------------------------------------------------------------------------------------------- |
+| POST   | `api/items`          | Creates a new item for the specified user and returns that item                              |
+| GET    | `api/items/:user_id` | Returns a list of all items for the specified user. If no items exist returns an empty array |
+| PUT    | `api/items/:id`      | Updates specified item                                                                       |
+| DELETE | `api/items/:id`      | Destroys specified item                                                                      |
 
 - Authentication required to access these resources
 

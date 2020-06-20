@@ -31,6 +31,9 @@ function update(id) {
 
 }
 
-function remove(id) {
+async function remove(id) {
+    const user = await findById(id)
+    const count = await db('users').where('id', id).del()
 
+    return count ? user : count
 }

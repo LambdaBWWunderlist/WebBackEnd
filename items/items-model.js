@@ -3,7 +3,9 @@ const db = require('../data/db-conn')
 module.exports = {
     insert,
     find,
-    findById
+    findById,
+    update,
+    remove
 }
 
 async function insert(item) {
@@ -49,4 +51,15 @@ function findById(id) {
 
 function findUser(user_id) {
     return db('users').where('id', user_id).first()
+}
+
+function update(id) {
+
+}
+
+async function remove(id) {
+    const item = await findById(id)
+    const count = await db('items').where('id', id).del()
+
+    return count ? item : count
 }

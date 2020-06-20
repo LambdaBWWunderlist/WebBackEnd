@@ -36,4 +36,25 @@ router.get('/:id', reqAuth, (req, res) => {
         })
 })
 
+router.put('/:id', reqAuth, (req, res) => {
+
+})
+
+router.delete('/:id', reqAuth, (req, res) => {
+    const { id } = req.params
+
+    Users.remove(id)
+        .then(user => {
+            if (user) {
+                res.status(200).json(user)
+            }
+            else {
+                res.status(404).json({ message: 'user not found. no records deleted' })
+            }
+        })
+        .catch(error => {
+            res.status(500).json({ error: error.message })
+        })
+})
+
 module.exports = router

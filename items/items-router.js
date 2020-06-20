@@ -45,4 +45,25 @@ router.get('/:user_id', reqAuth, (req, res) => {
 
 })
 
+router.put('/:id', reqAuth, (req, res) => {
+
+})
+
+router.delete('/:id', reqAuth, (req, res) => {
+    const { id } = req.params
+
+    Items.remove(id)
+        .then(item => {
+            if (item) {
+                res.status(200).json(item)
+            }
+            else {
+                res.status(404).json({ message: 'item not found. no records deleted' })
+            }
+        })
+        .catch(error => {
+            res.status(500).json({ error: error.message })
+        })
+})
+
 module.exports = router
