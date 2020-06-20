@@ -27,6 +27,7 @@
   id: INTEGER; // assigned by database, auto increments
   name: STRING; // not nullable, 128 chars max
   completed: BOOLEAN; // not nullable, defaults to false
+  recurring: STRING; // defaults to NULL, must be NULL, 'daily', 'weekly' or 'monthly'
   created_at: TIMESTAMP; // defaults to now, server will handle this
   updated_at: TIMESTAMP; // defaults to now, server will handle this
   user_id: INTEGER; // not nullable, references user id that created this item

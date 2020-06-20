@@ -15,6 +15,7 @@ exports.up = function (knex) {
 
             tbl.string('name', 128).notNullable().index()
             tbl.boolean('completed', 256).notNullable().defaultsTo(false)
+            tbl.string('recurring').defaultsTo(null)
             tbl.timestamps(true, true)
 
             //Foreign Key user_id => users.id
