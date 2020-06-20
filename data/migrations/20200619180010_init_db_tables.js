@@ -22,7 +22,7 @@ exports.up = function (knex) {
                 .notNullable()
                 .unsigned()
                 .references('users.id')
-                .onDelete('RESTRICT')
+                .onDelete('CASCADE')
                 .onUpdate('CASCADE')
         })
 };
