@@ -19,4 +19,21 @@ router.get('/', reqAuth, (req, res) => {
         })
 })
 
+router.get('/:id', reqAuth, (req, res) => {
+    const { id } = req.params
+
+    Users.findById(id)
+        .then(user => {
+            if (user) {
+                res.status(200).json(user)
+            }
+            else {
+                res.status(404).json({ message: 'invalid user id' })
+            }
+        })
+        .catch(error => {
+            res.status(500).json({ error: error.message })
+        })
+})
+
 module.exports = router
