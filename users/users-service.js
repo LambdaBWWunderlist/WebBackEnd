@@ -1,10 +1,14 @@
 const jwt = require('jsonwebtoken')
 const jwtKey = require('../config/constants').jwt_key
 
+const bcrypt = require('bcryptjs')
+const salt = require('../config/constants').hash_salt
+
 module.exports = {
     validateRegistration,
     validateLogin,
-    generateToken
+    generateToken,
+    hashPassword
 }
 
 //Validates required keys are present on request body
@@ -30,4 +34,8 @@ function generateToken(user) {
     }
 
     return jwt.sign(payload, jwtKey, options)
+}
+
+function hashPassword(password) {
+    return bcrypt.hashSync(password, salt)
 }

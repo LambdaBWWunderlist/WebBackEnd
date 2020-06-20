@@ -2,13 +2,10 @@ const router = require('express').Router()
 const {
     validateRegistration,
     validateLogin,
-    generateToken
+    generateToken,
+    hashPassword
 
 } = require('../users/users-service')
-
-//Hash
-const bcrypt = require('bcryptjs')
-const salt = require('../config/constants').hash_salt
 
 //Users Model
 const Users = require('../users/users-model')
@@ -19,8 +16,7 @@ router.post('/register', (req, res) => {
 
     if (validateRegistration(credentials)) {
         //Hash the password before sending to db to be stored
-        const hash = bcrypt.hashSync(credentials.password, salt)
-        credentials.password = hash
+        credentials.password = hashPassword(credentials.password)
 
         //Insert new user details into DB. If successful returns the newly created user
         Users.insert(credentials)
