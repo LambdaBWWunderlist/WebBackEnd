@@ -47,7 +47,25 @@ router.get('/:user_id', reqAuth, (req, res) => {
 })
 
 router.put('/:id', reqAuth, validateRecurring, (req, res) => {
+    const { id } = req.params
+    const item = req.body
 
+    //Need to fix the time format to match what the server creates initially
+    const timestamp = new Date()
+    item.updated_at = timestamp.toISOString()
+
+    Items.update(item, id)
+        .then(item => {
+            if (item) {
+                res.status(200).json(item)
+            }
+            else {
+                res.status(404).json({ message: 'requested item not found' })
+            }
+        })
+        .catch(error => {
+            res.status(500).json({ error: error.message })
+        })
 })
 
 router.delete('/:id', reqAuth, (req, res) => {
