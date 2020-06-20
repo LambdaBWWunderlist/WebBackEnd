@@ -30,10 +30,13 @@ async function find(user_id) {
         const user = await findUser(user_id)
 
         if (user) {
-            return db('items as i')
+            const items = await db('items as i')
                 .where('i.user_id', user_id)
                 .join('users as u', 'i.user_id', 'u.id')
                 .select('i.id', 'i.name', 'i.completed', 'i.created_at', 'i.updated_at', 'u.username')
+                .orderBy('i.id')
+
+            return items.map(i => i.completed ? { ...i, completed: true } : { ...i, completed: false })
         }
         else {
             return false
