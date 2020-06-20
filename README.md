@@ -35,6 +35,22 @@
 }
 ```
 
+#### Deleted Items
+
+---
+
+```js
+{
+  id: INTEGER; // assigned by database, auto increments
+  name: STRING; // not nullable, 128 chars max
+  completed: BOOLEAN; // not nullable, defaults to false
+  recurring: STRING; // defaults to null, must be null, 'daily', 'weekly' or 'monthly'
+  created_at: TIMESTAMP; // reference to creation date in items table
+  deleted_at: TIMESTAMP; // acts as the creation date on the deleted items table, defaults to now, server will handle this
+  user_id: INTEGER; // not nullable, references user id that created this item
+}
+```
+
 ## Endpoints
 
 #### Auth
@@ -72,6 +88,18 @@
 | GET    | `api/items/:user_id` | Returns a list of all items for the specified user. If no items exist returns an empty array |
 | PUT    | `api/items/:id`      | Updates specified item and returns the updated item                                          |
 | DELETE | `api/items/:id`      | Destroys specified item and returns the deleted item                                         |
+
+
+#### Deleted Items 
+
+- Authentication required to access these resources
+---
+
+| Method | Endpoint               | Description                                                                                  |
+| ------ | ---------------------- | -------------------------------------------------------------------------------------------- |
+| POST   | `api/deleted/:id`      | Sending { undelete: "recover" } will copy record to the items table. Destroys deleted item   |
+| GET    | `api/deleted/:user_id` | Returns a list of all deleted items for the specified user. If no items exist returns an empty array |
+| DELETE | `api/deleted/:id`      | Destroys specified item and returns the deleted item                                         |
 
 
 ## Seed Data
