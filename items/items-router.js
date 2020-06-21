@@ -74,6 +74,7 @@ router.put('/:id', reqAuth, validateRecurring, (req, res) => {
         })
 })
 
+//Inserts a copy of the item into the Deleted Items table and destroys the record in Items
 router.delete('/:id', reqAuth, (req, res) => {
     const { id } = req.params
 

@@ -70,8 +70,17 @@ async function update(item, id) {
 }
 
 async function remove(id) {
-    const item = await findById(id)
+    const item = await db('items as i')
+        .where('i.id', id)
+        .join('users as u', 'i.user_id', 'u.id')
+        .select('i.name', 'i.completed', 'i.recurring', 'i.created_at', 'i.user_id')
+        .first()
+
+    const [deletedId] = await db('deleted_items').insert(item, 'id')
+    const deletedItem = await db('deleted_items').where('id', deletedId).first()
+    deletedId.completed ? deletedId.completed = true : deletedId.completed = false
+
     const count = await db('items').where('id', id).del()
 
-    return count ? item : count
+    return count ? deletedItem : count
 }
