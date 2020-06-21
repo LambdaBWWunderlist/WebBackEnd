@@ -5,8 +5,27 @@ const reqAuth = require('../auth/requires-auth')
 const DelItems = require('./deleted-model')
 
 //Creates a new item associated with a specific user and returns the newly created item
-router.post('/', reqAuth, (req, res) => {
+router.post('/:id', reqAuth, (req, res) => {
+    const { id } = req.params
+    const { undelete } = req.body
 
+    if (undelete === 'recover') {
+        DelItems.undelete(id)
+            .then(item => {
+                if (item) {
+                    res.status(200).json(item)
+                }
+                else {
+                    res.status(404).json({ message: 'requested item not found' })
+                }
+            })
+            .catch(error => {
+                res.status(500).json({ error: error.message })
+            })
+    }
+    else {
+        res.status(400).json({ message: 'bad request. to recover item send { undelete: "recover" } in request body' })
+    }
 })
 
 //Returns an array containing all the items for a specified user. 
@@ -27,7 +46,7 @@ router.get('/:user_id', reqAuth, (req, res) => {
 router.delete('/:id', reqAuth, (req, res) => {
     const { id } = req.params
 
-    Items.remove(id)
+    DelItems.remove(id)
         .then(item => {
             if (item) {
                 res.status(200).json(item)

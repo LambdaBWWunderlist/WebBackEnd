@@ -95,11 +95,11 @@
 - Authentication required to access these resources
 ---
 
-| Method | Endpoint               | Description                                                                                  |
-| ------ | ---------------------- | -------------------------------------------------------------------------------------------- |
-| POST   | `api/deleted/:id`      | Sending { undelete: "recover" } will copy record to the items table. Destroys deleted item   |
+| Method | Endpoint               | Description                                                                                          |
+| ------ | ---------------------- | ---------------------------------------------------------------------------------------------------- |
+| POST   | `api/deleted/:id`      | Sending { undelete: "recover" } will copy record to the items table. Destroys deleted item           |
 | GET    | `api/deleted/:user_id` | Returns a list of all deleted items for the specified user. If no items exist returns an empty array |
-| DELETE | `api/deleted/:id`      | Destroys specified item and returns the deleted item                                         |
+| DELETE | `api/deleted/:id`      | Destroys specified item and returns the deleted item                                                 |
 
 
 ## Seed Data
