@@ -1,4 +1,5 @@
 // Update with your config settings.
+const pgConnection = process.env.DATABASE_URL || 'postgresql://postgres@localhost/wunderlist'
 
 module.exports = {
 
@@ -21,6 +22,7 @@ module.exports = {
       },
     },
   },
+
   testing: {
     client: 'sqlite3',
     connection: {
@@ -41,5 +43,19 @@ module.exports = {
     },
   },
 
+  production: {
+    client: 'pg',
+    connection: pgConnection,
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      directory: './data/migrations'
+    },
+    seeds: {
+      directory: './data/seeds'
+    }
+  }
 
 };
