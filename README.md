@@ -1,6 +1,6 @@
 # NODE.js Back-End API for Wunderlist
 
-### https://bw-wunder-list.herokuapp.com
+### https://wunderlist-node.herokuapp.com/
 
 ## Schema
 
@@ -46,7 +46,7 @@
   completed: BOOLEAN; // not nullable, defaults to false
   recurring: STRING; // defaults to null, must be null, 'daily', 'weekly' or 'monthly'
   created_at: TIMESTAMP; // reference to creation date in items table
-  deleted_at: TIMESTAMP; // acts as the creation date on the deleted items table, defaults to now, server will handle this
+  deleted_at: TIMESTAMP; // creation date on the deleted items table, defaults to now, server will handle this
   user_id: INTEGER; // not nullable, references user id that created this item
 }
 ```
