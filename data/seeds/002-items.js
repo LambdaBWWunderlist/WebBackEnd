@@ -1,7 +1,8 @@
 
 exports.seed = function (knex) {
   // Deletes ALL existing entries
-  return knex('items').truncate()
+  return knex('items')
+    .raw('TRUNCATE users RESTART IDENTITY CASCADE')
     .then(function () {
       // Inserts seed entries
       return knex('items').insert([
