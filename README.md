@@ -1,4 +1,4 @@
-# Back-End API for Wunderlist
+# NODE.js Back-End API for Wunderlist
 
 ### https://bw-wunder-list.herokuapp.com
 
