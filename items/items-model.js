@@ -33,7 +33,7 @@ async function find(user_id) {
             const items = await db('items as i')
                 .where('i.user_id', user_id)
                 .join('users as u', 'i.user_id', 'u.id')
-                .select('i.id', 'i.name', 'i.completed', 'i.recurring', 'i.created_at', 'i.updated_at', 'u.username')
+                .select('i.id', 'i.name', 'i.completed', 'i.recurring', 'i.due_date', 'i.created_at', 'i.updated_at', 'u.username')
                 .orderBy('i.id')
 
             return items.map(i => i.completed ? { ...i, completed: true } : { ...i, completed: false })
@@ -49,15 +49,21 @@ async function find(user_id) {
 }
 
 async function findById(id) {
-    const item = await db('items as i')
-        .where('i.id', id)
-        .join('users as u', 'i.user_id', 'u.id')
-        .select('i.id', 'i.name', 'i.completed', 'i.recurring', 'i.created_at', 'i.updated_at', 'u.username')
-        .first()
+    try {
+        const item = await db('items as i')
+            .where('i.id', id)
+            .join('users as u', 'i.user_id', 'u.id')
+            .select('i.id', 'i.name', 'i.completed', 'i.recurring', 'i.due_date', 'i.created_at', 'i.updated_at', 'u.username')
+            .first()
 
-    item.completed ? item.completed = true : item.completed = false
+        item.completed ? item.completed = true : item.completed = false
 
-    return item
+        return item
+    }
+    catch (error) {
+        throw error
+    }
+
 }
 
 function findUser(user_id) {
@@ -65,22 +71,34 @@ function findUser(user_id) {
 }
 
 async function update(item, id) {
-    const count = await db('items').where('id', id).update(item)
-    return count ? findById(id) : count
+    try {
+        const count = await db('items').where('id', id).update(item)
+        return count ? findById(id) : count
+    }
+    catch (error) {
+        throw error
+    }
+
 }
 
 async function remove(id) {
-    const item = await db('items as i')
-        .where('i.id', id)
-        .join('users as u', 'i.user_id', 'u.id')
-        .select('i.name', 'i.completed', 'i.recurring', 'i.created_at', 'i.user_id')
-        .first()
+    try {
+        const item = await db('items as i')
+            .where('i.id', id)
+            .join('users as u', 'i.user_id', 'u.id')
+            .select('i.name', 'i.completed', 'i.recurring', 'i.due_date', 'i.created_at', 'i.user_id')
+            .first()
 
-    const [deletedId] = await db('deleted_items').insert(item, 'id')
-    const deletedItem = await db('deleted_items').where('id', deletedId).first()
-    deletedId.completed ? deletedId.completed = true : deletedId.completed = false
+        const [deletedId] = await db('deleted_items').insert(item, 'id')
+        const deletedItem = await db('deleted_items').where('id', deletedId).first()
+        deletedId.completed ? deletedId.completed = true : deletedId.completed = false
 
-    const count = await db('items').where('id', id).del()
+        const count = await db('items').where('id', id).del()
 
-    return count ? deletedItem : count
+        return count ? deletedItem : count
+    }
+    catch (error) {
+        throw error
+    }
+
 }
