@@ -29,6 +29,7 @@
   name: STRING; // not nullable, 128 chars max
   completed: BOOLEAN; // not nullable, defaults to false
   recurring: STRING; // defaults to null, must be null, 'daily', 'weekly' or 'monthly'
+  due_date: TIMESTAMP; // nullable, timestamp format: 'YYYY-MM-DD HH:MM:SS' (UTC)
   created_at: TIMESTAMP; // defaults to now, server will handle this
   updated_at: TIMESTAMP; // defaults to now, server will handle this
   user_id: INTEGER; // not nullable, references user id that created this item
@@ -45,6 +46,7 @@
   name: STRING; // not nullable, 128 chars max
   completed: BOOLEAN; // not nullable, defaults to false
   recurring: STRING; // defaults to null, must be null, 'daily', 'weekly' or 'monthly'
+  due_date: TIMESTAMP; // nullable, timestamp format: 'YYYY-MM-DD HH:MM:SS' (UTC)
   created_at: TIMESTAMP; // reference to creation date in items table
   deleted_at: TIMESTAMP; // creation date on the deleted items table, defaults to now, server will handle this
   user_id: INTEGER; // not nullable, references user id that created this item
@@ -146,30 +148,37 @@
 [
   {
     name: 'Assemble the avengers',
+    due_date: '2020-06-30 12:00:00',
     user_id: 1
   },
   {
     name: 'Become Heavy weight Champ',
+    due_date: '2020-06-30 12:00:00',
     user_id: 2
   },
   {
     name: 'Solve time travel',
+    due_date: '2020-06-30 12:00:00',
     user_id: 1
   },
   {
     name: 'Win Royale Rumble',
+    due_date: '2020-06-30 12:00:00',
     user_id: 2
   },
   {
     name: 'Get the Infinity Stones',
+    due_date: '2020-06-30 12:00:00',
     user_id: 1
   },
   {
     name: '?????',
+    due_date: '2020-06-30 12:00:00',
     user_id: 1
   },
   {
     name: 'Profit',
+    due_date: '2020-06-30 12:00:00',
     user_id: 1
   }
 ];
