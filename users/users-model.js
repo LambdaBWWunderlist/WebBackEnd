@@ -10,9 +10,15 @@ module.exports = {
 }
 
 async function insert(user) {
-    const [id] = await db('users').insert(user, 'id')
+    try {
+        const [id] = await db('users').insert(user, 'id')
 
-    return findById(id)
+        return findById(id)
+    }
+    catch (error) {
+        throw error
+    }
+
 }
 
 function find() {
@@ -28,13 +34,25 @@ function findById(id) {
 }
 
 async function update(user, id) {
-    const count = await db('users').where('id', id).update(user)
-    return count ? findById(id) : count
+    try {
+        const count = await db('users').where('id', id).update(user)
+        return count ? findById(id) : count
+    }
+    catch (error) {
+        throw error
+    }
+
 }
 
 async function remove(id) {
-    const user = await findById(id)
-    const count = await db('users').where('id', id).del()
+    try {
+        const user = await findById(id)
+        const count = await db('users').where('id', id).del()
 
-    return count ? user : count
+        return count ? user : count
+    }
+    catch (error) {
+        throw error
+    }
+
 }

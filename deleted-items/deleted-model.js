@@ -7,13 +7,19 @@ module.exports = {
 }
 
 async function undelete(id) {
-    const item = await db('deleted_items')
-        .where('id', id)
-        .select('name', 'completed', 'recurring', 'created_at', 'user_id')
+    try {
+        const item = await db('deleted_items')
+            .where('id', id)
+            .select('name', 'completed', 'recurring', 'created_at', 'user_id')
 
-    const [recoverId] = await db('items').insert(item, 'id')
+        const [recoverId] = await db('items').insert(item, 'id')
 
-    return db('items').where('id', recoverId)
+        return db('items').where('id', recoverId)
+    }
+    catch (error) {
+        throw error
+    }
+
 }
 
 function find(user_id) {
@@ -21,8 +27,14 @@ function find(user_id) {
 }
 
 async function remove(id) {
-    const item = await db('deleted_items').where('id', id)
-    const count = await db('deleted_items').where('id', id).del()
+    try {
+        const item = await db('deleted_items').where('id', id)
+        const count = await db('deleted_items').where('id', id).del()
 
-    return count ? item : count
+        return count ? item : count
+    }
+    catch (error) {
+        throw error
+    }
+
 }

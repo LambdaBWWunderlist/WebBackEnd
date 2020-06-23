@@ -10,4 +10,12 @@ describe('server.js', () => {
                 expect(res.status).toBe(200)
             })
     })
+
+    it('should respond with { api: "up and running!" }', () => {
+        return supertest(server)
+            .get('/')
+            .then(res => {
+                expect(res.body).toEqual({ api: "up and running!" })
+            })
+    })
 })
