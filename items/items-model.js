@@ -33,7 +33,7 @@ async function find(user_id) {
             const items = await db('items as i')
                 .where('i.user_id', user_id)
                 .join('users as u', 'i.user_id', 'u.id')
-                .select('i.id', 'i.name', 'i.completed', 'i.recurring', 'i.due_date', 'i.created_at', 'i.updated_at', 'u.username')
+                .select('i.id', 'i.name', 'i.body', 'i.completed', 'i.recurring', 'i.due_date', 'i.created_at', 'i.updated_at', 'u.username')
                 .orderBy('i.id')
 
             return items.map(i => i.completed ? { ...i, completed: true } : { ...i, completed: false })
@@ -53,7 +53,7 @@ async function findById(id) {
         const item = await db('items as i')
             .where('i.id', id)
             .join('users as u', 'i.user_id', 'u.id')
-            .select('i.id', 'i.name', 'i.completed', 'i.recurring', 'i.due_date', 'i.created_at', 'i.updated_at', 'u.username')
+            .select('i.id', 'i.name', 'i.body', 'i.completed', 'i.recurring', 'i.due_date', 'i.created_at', 'i.updated_at', 'u.username')
             .first()
 
         item.completed ? item.completed = true : item.completed = false
@@ -86,7 +86,7 @@ async function remove(id) {
         const item = await db('items as i')
             .where('i.id', id)
             .join('users as u', 'i.user_id', 'u.id')
-            .select('i.name', 'i.completed', 'i.recurring', 'i.due_date', 'i.created_at', 'i.user_id')
+            .select('i.name', 'i.body', 'i.completed', 'i.recurring', 'i.due_date', 'i.created_at', 'i.user_id')
             .first()
 
         const [deletedId] = await db('deleted_items').insert(item, 'id')

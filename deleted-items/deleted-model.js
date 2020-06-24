@@ -10,7 +10,7 @@ async function undelete(id) {
     try {
         const item = await db('deleted_items')
             .where('id', id)
-            .select('name', 'completed', 'recurring', 'due_date', 'created_at', 'user_id')
+            .select('name', 'i.body', 'completed', 'recurring', 'due_date', 'created_at', 'user_id')
 
         const [recoverId] = await db('items').insert(item, 'id')
 
@@ -25,7 +25,7 @@ async function undelete(id) {
 function find(user_id) {
     return db('deleted_items')
         .where('user_id', user_id)
-        .select('id', 'name', 'completed', 'recurring', 'due_date', 'created_at', 'user_id')
+        .select('id', 'name', 'i.body', 'completed', 'recurring', 'due_date', 'created_at', 'user_id')
 }
 
 async function remove(id) {
