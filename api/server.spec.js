@@ -7,8 +7,8 @@ describe('server.js', () => {
     beforeEach(async () => {
         //Clean the test database before the tests run
         await db('users').truncate()
-        //await db('items').truncate()
-        //await db('deleted_items').truncate()
+        await db('items').truncate()
+        await db('deleted_items').truncate()
 
         await db('users').insert(
             {
