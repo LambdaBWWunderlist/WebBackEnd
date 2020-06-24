@@ -27,6 +27,7 @@
 {
   id: INTEGER; // assigned by database, auto increments
   name: STRING; // not nullable, 128 chars max
+  body: TEXT; // nullable
   completed: BOOLEAN; // not nullable, defaults to false
   recurring: STRING; // defaults to null, must be null, 'daily', 'weekly' or 'monthly'
   due_date: TIMESTAMP; // nullable, timestamp format: 'YYYY-MM-DD HH:MM:SS' (UTC)
@@ -44,6 +45,7 @@
 {
   id: INTEGER; // assigned by database, auto increments
   name: STRING; // not nullable, 128 chars max
+  body: TEXT; // nullable
   completed: BOOLEAN; // not nullable, defaults to false
   recurring: STRING; // defaults to null, must be null, 'daily', 'weekly' or 'monthly'
   due_date: TIMESTAMP; // nullable, timestamp format: 'YYYY-MM-DD HH:MM:SS' (UTC)
