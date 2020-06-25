@@ -3,6 +3,7 @@ const server = require('./server')
 const db = require('../data/db-conn')
 
 describe('server.js', () => {
+    let token = ""
 
     beforeEach(async () => {
         //Clean the test database before the tests run
@@ -64,8 +65,31 @@ describe('server.js', () => {
                 .post('/api/login')
                 .send(newUser)
                 .then(res => {
+                    token = res.body.token
+
                     expect(res.status).toBe(200)
-                    expect(res.body.token).not.toBeUndefined()
+                    expect(token).not.toBeUndefined()
+                })
+        })
+    })
+
+    describe('GET /api/users', () => {
+        it('can get list of users after logging in', () => {
+
+            return supertest(server)
+                .get('/api/users')
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(200)
+                })
+        })
+
+        it('should reject requests without a token', () => {
+
+            return supertest(server)
+                .get('/api/users')
+                .then(res => {
+                    expect(res.status).toBe(401)
                 })
         })
     })
