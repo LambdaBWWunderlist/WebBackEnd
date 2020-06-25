@@ -12,7 +12,7 @@ exports.up = function (knex) {
 exports.down = function (knex) {
     return knex.schema
         .table('deleted_items', tbl => {
-            tbl.dropColumn('due_date', { useTZ: false })
+            tbl.dropColumn('due_date')
         })
         .table('items', tbl => {
             tbl.dropColumn('due_date')
